@@ -10,7 +10,7 @@ const audiences = [
 ];
 
 const workflow = [
-  ["Partner link", "A MindLaunch partner shares a unique Capital Gateway link tied to source attribution."],
+  ["Partner link", "A MindLaunch partner shares a unique Gateway link tied to source attribution."],
   ["Guided intake", "Laika explains venture fit, role type, dataroom status, and why review is required."],
   ["Compliance review", "Interest, wallet context, jurisdiction, and partner source are reviewed before any funding step."],
   ["Dataroom access", "Approved users receive project-specific document access based on granted permissions."],
@@ -20,8 +20,8 @@ export function LandingPage({ wallet }: { wallet: WalletView }) {
   return <div className="capital-page">
     <section className="capital-hero">
       <div className="capital-hero-copy">
-        <span className="capital-brandline">Private Equity & Venture Capital Studio</span>
-        <h1>MindLaunch.AI Capital Gateway</h1>
+        <span className="capital-brandline">MindLaunch / Private Equity & Venture Capital Studio</span>
+        <h1>Gateway</h1>
         <p>A private operating layer for partner referrals, venture interest, Laika-guided routing, and permissioned dataroom access across the MindLaunch ecosystem.</p>
         <div className="hero-actions">
           <Link className="button primary" to="/capital-gateway">Explore Ecosystem <ArrowRight size={16} /></Link>
@@ -56,7 +56,7 @@ export function LandingPage({ wallet }: { wallet: WalletView }) {
       <div className="capital-education-hero">
         <div>
           <h2>Private capital routing, not public fundraising</h2>
-          <p>Capital Gateway organizes partner referral links, project discovery, capital interest intake, compliance review, approved-wallet preparation, and project-specific dataroom access for the MindLaunch venture studio.</p>
+          <p>Gateway organizes partner referral links, project discovery, capital interest intake, compliance review, approved-wallet preparation, and project-specific dataroom access for the MindLaunch venture studio.</p>
         </div>
         <div className="education-status">
           <Status tone="cyan">backend aware</Status>
@@ -72,7 +72,7 @@ export function LandingPage({ wallet }: { wallet: WalletView }) {
 
       <div className="education-split">
         <div className="panel-lite">
-          <SectionHead label="AUDIENCE" title="Who this is for" copy="The Gateway supports a private capital operating motion across the MindLaunch ecosystem." />
+          <SectionHead label="AUDIENCE" title="Who this is for" copy="Gateway supports a private capital operating motion across the MindLaunch ecosystem." />
           {audiences.map(([title, copy]) => <div key={title} className="education-row"><Users size={16} /><div><strong>{title}</strong><p>{copy}</p></div></div>)}
         </div>
         <div className="panel-lite">
