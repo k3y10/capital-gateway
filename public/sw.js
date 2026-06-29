@@ -1,4 +1,4 @@
-const CACHE_NAME = "gateway-shell-v3";
+const CACHE_NAME = "gateway-shell-v4";
 const APP_SHELL = ["/", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
@@ -17,7 +17,7 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.startsWith("/api/")) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(fetch(request).catch(() => caches.match("/")).then((response) => response || caches.match("/")));
+    event.respondWith(fetch(request).then((response) => response.ok ? response : caches.match("/")).catch(() => caches.match("/")).then((response) => response || caches.match("/")));
     return;
   }
 
