@@ -1,21 +1,25 @@
 {
+  "id": "/capital-gateway",
   "name": "Gateway",
   "short_name": "Gateway",
   "description": "Private venture routing, partner referrals, capital interest, and compliance-gated dataroom access across the MindLaunch ecosystem.",
-  "start_url": "/",
+  "start_url": "/capital-gateway",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "background_color": "#000000",
   "theme_color": "#f97316",
+  "prefer_related_applications": false,
+  "launch_handler": { "client_mode": "navigate-existing" },
   "icons": [
     { "src": "/mindlaunch.png", "sizes": "238x238", "type": "image/png", "purpose": "any maskable" },
-    { "src": "/mindlaunch-logo.png", "sizes": "760x180", "type": "image/png", "purpose": "any" }
+    { "src": "/mindlaunch-logo.png", "sizes": "1757x238", "type": "image/png", "purpose": "any" }
   ],
   "categories": ["finance", "business", "productivity"],
   "shortcuts": [
-    { "name": "Open Gateway", "short_name": "Gateway", "url": "/capital-gateway", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238" }] },
-    { "name": "Partner Dataroom", "short_name": "Dataroom", "url": "/partner/dataroom", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238" }] },
-    { "name": "Review Pipeline", "short_name": "Pipeline", "url": "/admin/capital-interest", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238" }] }
+    { "name": "Open Gateway", "short_name": "Gateway", "url": "/capital-gateway", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238", "type": "image/png" }] },
+    { "name": "Partner Dataroom", "short_name": "Dataroom", "url": "/partner/dataroom", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238", "type": "image/png" }] },
+    { "name": "Review Pipeline", "short_name": "Pipeline", "url": "/admin/capital-interest", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238", "type": "image/png" }] }
   ]
 }
