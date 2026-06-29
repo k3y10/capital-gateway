@@ -33,9 +33,11 @@ body {
     radial-gradient(1px 1px at 42% 9%, rgba(120, 232, 255, 0.75), transparent 55%),
     radial-gradient(1px 1px at 74% 26%, rgba(255, 255, 255, 0.65), transparent 55%),
     radial-gradient(1px 1px at 86% 72%, rgba(157, 140, 255, 0.6), transparent 55%),
-    radial-gradient(circle at 50% -20%, rgba(70, 110, 255, 0.22), rgba(70, 110, 255, 0) 32rem),
-    radial-gradient(circle at 90% 12%, rgba(120, 232, 255, 0.16), rgba(120, 232, 255, 0) 26rem),
-    linear-gradient(180deg, #02030b 0%, #070b18 46%, #01020a 100%);
+    radial-gradient(circle at 50% -20%, rgba(70, 110, 255, 0.2), rgba(70, 110, 255, 0) 32rem),
+    linear-gradient(180deg, rgba(2, 3, 11, 0.78) 0%, rgba(7, 11, 24, 0.88) 46%, rgba(1, 2, 10, 0.98) 100%),
+    url("https://mindlaunch.xyz/space.gif") center / cover fixed no-repeat,
+    url("/space-background.svg") center / cover fixed no-repeat,
+    #01020a;
   color: var(--white);
 }
 
@@ -109,6 +111,25 @@ body::selection {
   box-shadow: 0 0 18px rgba(233, 201, 120, 0.9);
 }
 
+.mindlaunch-mark img {
+  display: none;
+  height: 82%;
+  max-width: 82%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+.mindlaunch-mark.has-image img {
+  display: block;
+}
+
+.mindlaunch-mark.has-image::before,
+.mindlaunch-mark.has-image::after,
+.mindlaunch-mark.has-image > span {
+  display: none;
+}
+
 .mindlaunch-mark > span {
   color: #ffffff;
   font-family: var(--mono);
@@ -119,6 +140,14 @@ body::selection {
 
 .mindlaunch-mark i {
   display: none;
+}
+
+.mindlaunch-hero-logo {
+  display: block;
+  height: auto;
+  margin-bottom: 18px;
+  max-width: min(360px, 74vw);
+  object-fit: contain;
 }
 
 .main-nav a,
@@ -457,5 +486,9 @@ footer a {
   .main-nav a,
   .drawer-section a {
     width: 100%;
+  }
+
+  .mindlaunch-hero-logo {
+    max-width: min(300px, 82vw);
   }
 }
