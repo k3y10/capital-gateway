@@ -1,6 +1,0 @@
-packages:
-  - "."
-
-allowBuilds:
-  prisma: true
-  "@prisma/engines": true
