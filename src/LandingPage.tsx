@@ -1,6 +1,7 @@
 import { ArrowRight, Bot, CircleDollarSign, Database, FolderLock, Landmark, Network, ShieldCheck, Users, WalletCards } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Metric, SectionHead, Status, WalletButton, type WalletView } from "./components";
+import "./landing.css";
 
 const audiences = [
   ["LPs and GPs", "Review ecosystem ventures, indicate non-binding capital interest, and enter a compliance-led review process."],
