@@ -1,0 +1,87 @@
+:root {
+  --gateway-logo-url: url("/mindlaunch.png?v=3");
+  --gateway-laika-url: url("/laika.png?v=3");
+}
+
+.mindlaunch-mark {
+  background:
+    var(--gateway-logo-url) center / calc(100% - 6px) calc(100% - 6px) no-repeat,
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.96), rgba(219, 234, 254, 0.88) 42%, rgba(249, 115, 22, 0.24) 74%, rgba(0, 0, 0, 0.72));
+  border-color: rgba(251, 146, 60, 0.64);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 28px rgba(249, 115, 22, 0.36);
+  flex: 0 0 auto;
+}
+
+.mindlaunch-mark img {
+  opacity: 0;
+}
+
+.brand:hover .mindlaunch-mark,
+.brand:focus-visible .mindlaunch-mark {
+  border-color: rgba(253, 186, 116, 0.9);
+  box-shadow: 0 0 0 1px rgba(253, 186, 116, 0.16), 0 0 34px rgba(249, 115, 22, 0.46);
+}
+
+.laika-orb {
+  background:
+    var(--gateway-laika-url) center / 88% auto no-repeat,
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.94), rgba(251, 146, 60, 0.2) 54%, rgba(0, 0, 0, 0.82));
+  border-color: rgba(251, 146, 60, 0.72);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.laika-orb svg {
+  display: none;
+}
+
+.capital-project-card::before {
+  background-color: rgba(255, 255, 255, 0.94);
+  background-size: calc(100% - 12px) calc(100% - 12px);
+  border-color: rgba(251, 146, 60, 0.58);
+}
+
+.capital-project-card:nth-child(1)::before {
+  background-image: url("/logos/idefi-ai.png?v=3");
+}
+
+.capital-project-card:nth-child(2)::before {
+  background-image: url("/logos/terrasatch-logo.png?v=3");
+}
+
+.capital-project-card:nth-child(3)::before {
+  background-image: url("/logos/quak.png?v=3");
+}
+
+.capital-project-card:nth-child(7)::before {
+  background-image: url("/logos/horao-ai.png?v=3");
+}
+
+.capital-project-card:nth-child(8)::before {
+  background-image: url("/logos/wolfden-logo.png?v=3");
+}
+
+.capital-project-card:nth-child(4)::before,
+.capital-project-card:nth-child(5)::before,
+.capital-project-card:nth-child(6)::before,
+.capital-project-card:nth-child(9)::before {
+  background-color: rgba(0, 0, 0, 0.64);
+  background-image: var(--gateway-logo-url);
+  background-size: calc(100% - 8px) calc(100% - 8px);
+}
+
+.mindlaunch-hero-logo {
+  filter: drop-shadow(0 0 22px rgba(249, 115, 22, 0.22));
+}
+
+@media (max-width: 760px) {
+  .mindlaunch-mark {
+    height: 40px;
+    width: 40px;
+  }
+
+  .laika-orb {
+    height: 66px;
+    width: 66px;
+  }
+}
