@@ -21,9 +21,9 @@ const SECONDARY_NAV = [
 ] as const;
 
 export function Brand() {
-  return <Link to="/capital-gateway" className="brand" aria-label="MindLaunch.AI Capital Gateway home">
-    <span className="mindlaunch-mark" aria-hidden="true"><span>ML</span></span>
-    <span><strong>MindLaunch.AI</strong><small>Private Equity & Venture Studio</small></span>
+  return <Link to="/capital-gateway" className="brand" aria-label="Gateway for the MindLaunch ecosystem">
+    <span className="mindlaunch-mark" aria-hidden="true"><span>G</span></span>
+    <span><strong>Gateway</strong><small>MindLaunch Ecosystem</small></span>
   </Link>;
 }
 
@@ -48,8 +48,8 @@ export function Layout({ wallet }: { wallet: WalletView }) {
     {open ? <button className="nav-backdrop" aria-label="Close navigation" onClick={() => setOpen(false)} /> : null}
     <header className="topbar">
       <Brand />
-      <nav className={open ? "main-nav open" : "main-nav"} aria-label="Primary app navigation">
-        <div className="drawer-label">MindLaunch ecosystem</div>
+      <nav className={open ? "main-nav open" : "main-nav"} aria-label="Gateway navigation">
+        <div className="drawer-label">MindLaunch</div>
         {PRIMARY_NAV.map(({ to, label, Icon }) => <NavLink key={to} to={to} onClick={() => setOpen(false)}><Icon size={15} strokeWidth={1.8} /><span>{label}</span></NavLink>)}
         <div className="drawer-section"><span>Admin</span>{SECONDARY_NAV.map(({ to, label, Icon }) => <NavLink key={to} to={to} onClick={() => setOpen(false)}><Icon size={15} strokeWidth={1.8} /><span>{label}</span></NavLink>)}</div>
       </nav>
@@ -61,7 +61,7 @@ export function Layout({ wallet }: { wallet: WalletView }) {
     </header>
     <main><Outlet /></main>
     <footer>
-      <div><Brand /><p>MindLaunch.AI venture routing, partner referrals, and compliance-gated dataroom access across AI, Web3, quantum infrastructure, fintech, and field intelligence.</p></div>
+      <div><Brand /><p>Gateway routes partner referrals, capital interest, and compliance-gated dataroom access across the MindLaunch ecosystem.</p></div>
       <div className="footer-links"><Link to="/capital-gateway">Gateway</Link><Link to="/partner/dataroom">Dataroom</Link><Link to="/admin/referrals">Admin</Link></div>
       <p className="disclaimer">This platform is not an offer to sell securities. USDC is prepared only as a future settlement rail after compliance approval.</p>
     </footer>
@@ -84,6 +84,6 @@ export function Metric({ label, value, detail, icon }: { label: string; value: s
   return <div className="metric">{icon}<span>{label}</span><strong>{value}</strong>{detail ? <small>{detail}</small> : null}</div>;
 }
 
-export function Terminal({ title = "Capital terminal", logs }: { title?: string; logs: string[] }) {
+export function Terminal({ title = "Gateway terminal", logs }: { title?: string; logs: string[] }) {
   return <div className="terminal"><div className="terminal-head"><span><i /><i /><i /></span><strong>{title}</strong><span className="live"><Activity size={12} /> live</span></div><div className="terminal-body">{logs.map((log, index) => <div key={`${log}-${index}`}><time>{`17:${String(42 - index).padStart(2, "0")}`}</time><span>{">"}</span><span>{log}</span></div>)}</div></div>;
 }
