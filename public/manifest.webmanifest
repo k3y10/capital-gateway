@@ -1,0 +1,22 @@
+{
+  "name": "Gateway",
+  "short_name": "Gateway",
+  "description": "Private venture routing, partner referrals, capital interest, and compliance-gated dataroom access across the MindLaunch ecosystem.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#01020a",
+  "theme_color": "#01020a",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/gateway-icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "/mindlaunch-logo.svg", "sizes": "760x180", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "categories": ["finance", "business", "productivity"],
+  "shortcuts": [
+    { "name": "Open Gateway", "short_name": "Gateway", "url": "/capital-gateway", "icons": [{ "src": "/favicon.svg", "sizes": "any" }] },
+    { "name": "Partner Dataroom", "short_name": "Dataroom", "url": "/partner/dataroom", "icons": [{ "src": "/gateway-icon.svg", "sizes": "512x512" }] },
+    { "name": "Review Pipeline", "short_name": "Pipeline", "url": "/admin/capital-interest", "icons": [{ "src": "/gateway-icon.svg", "sizes": "512x512" }] }
+  ]
+}
