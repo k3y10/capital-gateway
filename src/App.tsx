@@ -3,6 +3,7 @@ import { AdminCapitalInterestPage, AdminDataroomPage, AdminPartnersPage, AdminPr
 import { CapitalGatewayProvider } from "./capitalServices";
 import { Layout } from "./components";
 import { useWalletState } from "./hooks";
+import { LandingPage } from "./LandingPage";
 
 export default function App() {
   const wallet = useWalletState();
@@ -16,7 +17,7 @@ export default function App() {
   }
 
   return <CapitalGatewayProvider><Routes><Route element={<Layout wallet={wallet} />}>
-    <Route index element={<Navigate to="/capital-gateway" replace />} />
+    <Route index element={<LandingPage wallet={wallet} />} />
     <Route path="capital-gateway" element={<CapitalGatewayPage wallet={wallet} />} />
     <Route path="invite/:partnerCode" element={<InvitePage wallet={wallet} />} />
     <Route path="launch/:projectSlug" element={<LaunchProjectPage wallet={wallet} />} />
