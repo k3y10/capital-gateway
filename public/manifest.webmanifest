@@ -1,16 +1,16 @@
 {
-  "name": "MindLaunch.AI Capital Gateway",
-  "short_name": "MindLaunch.AI",
-  "description": "Private venture routing, partner referrals, capital interest, and compliance-gated dataroom access for the MindLaunch ecosystem.",
+  "name": "Gateway",
+  "short_name": "Gateway",
+  "description": "Private venture routing, partner referrals, capital interest, and compliance-gated dataroom access across the MindLaunch ecosystem.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#030304",
-  "theme_color": "#030304",
+  "background_color": "#01020a",
+  "theme_color": "#01020a",
   "categories": ["finance", "business", "productivity"],
   "shortcuts": [
-    { "name": "Explore Ecosystem", "short_name": "Gateway", "url": "/capital-gateway" },
+    { "name": "Open Gateway", "short_name": "Gateway", "url": "/capital-gateway" },
     { "name": "Partner Dataroom", "short_name": "Dataroom", "url": "/partner/dataroom" },
     { "name": "Review Pipeline", "short_name": "Pipeline", "url": "/admin/capital-interest" }
   ]
