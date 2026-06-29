@@ -6,17 +6,16 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#01020a",
-  "theme_color": "#01020a",
+  "background_color": "#000000",
+  "theme_color": "#f97316",
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "/gateway-icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" },
-    { "src": "/mindlaunch-logo.svg", "sizes": "760x180", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "/mindlaunch.png", "sizes": "238x238", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/mindlaunch-logo.png", "sizes": "760x180", "type": "image/png", "purpose": "any" }
   ],
   "categories": ["finance", "business", "productivity"],
   "shortcuts": [
-    { "name": "Open Gateway", "short_name": "Gateway", "url": "/capital-gateway", "icons": [{ "src": "/favicon.svg", "sizes": "any" }] },
-    { "name": "Partner Dataroom", "short_name": "Dataroom", "url": "/partner/dataroom", "icons": [{ "src": "/gateway-icon.svg", "sizes": "512x512" }] },
-    { "name": "Review Pipeline", "short_name": "Pipeline", "url": "/admin/capital-interest", "icons": [{ "src": "/gateway-icon.svg", "sizes": "512x512" }] }
+    { "name": "Open Gateway", "short_name": "Gateway", "url": "/capital-gateway", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238" }] },
+    { "name": "Partner Dataroom", "short_name": "Dataroom", "url": "/partner/dataroom", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238" }] },
+    { "name": "Review Pipeline", "short_name": "Pipeline", "url": "/admin/capital-interest", "icons": [{ "src": "/mindlaunch.png", "sizes": "238x238" }] }
   ]
 }
