@@ -1,5 +1,5 @@
-const CACHE_NAME = "mindlaunch-capital-gateway-shell-v1";
-const APP_SHELL = ["/", "/capital-gateway", "/manifest.webmanifest"];
+const CACHE_NAME = "gateway-shell-v3";
+const APP_SHELL = ["/", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
@@ -16,13 +16,16 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith("/api/")) return;
 
-  event.respondWith(
-    caches.match(request).then((cached) => cached || fetch(request).then((response) => {
-      if (response.ok) {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-      }
-      return response;
-    }).catch(() => caches.match("/capital-gateway")))
-  );
+  if (request.mode === "navigate") {
+    event.respondWith(fetch(request).catch(() => caches.match("/")).then((response) => response || caches.match("/")));
+    return;
+  }
+
+  event.respondWith(fetch(request).then((response) => {
+    if (response.ok) {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+    }
+    return response;
+  }).catch(() => caches.match(request)));
 });
