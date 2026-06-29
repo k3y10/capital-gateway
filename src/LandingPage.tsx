@@ -17,7 +17,7 @@ const workflow = [
 ];
 
 function MindLaunchLogo() {
-  return <img className="mindlaunch-hero-logo" src="https://mindlaunch.xyz/mindlaunch-logo.png" alt="MindLaunch" onError={(event) => { event.currentTarget.src = "/mindlaunch-logo.svg"; event.currentTarget.onerror = null; }} />;
+  return <img className="mindlaunch-hero-logo" src="/mindlaunch-logo.png" alt="MindLaunch" />;
 }
 
 export function LandingPage({ wallet }: { wallet: WalletView }) {
