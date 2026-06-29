@@ -16,11 +16,16 @@ const workflow = [
   ["Dataroom access", "Approved users receive project-specific document access based on granted permissions."],
 ];
 
+function MindLaunchLogo() {
+  return <img className="mindlaunch-hero-logo" src="https://mindlaunch.xyz/mindlaunch-logo.png" alt="MindLaunch" onError={(event) => { event.currentTarget.src = "/mindlaunch-logo.svg"; event.currentTarget.onerror = null; }} />;
+}
+
 export function LandingPage({ wallet }: { wallet: WalletView }) {
   return <div className="capital-page">
     <section className="capital-hero">
       <div className="capital-hero-copy">
-        <span className="capital-brandline">MindLaunch / Private Equity & Venture Capital Studio</span>
+        <MindLaunchLogo />
+        <span className="capital-brandline">Private Equity & Venture Capital Studio</span>
         <h1>Gateway</h1>
         <p>A private operating layer for partner referrals, venture interest, Laika-guided routing, and permissioned dataroom access across the MindLaunch ecosystem.</p>
         <div className="hero-actions">
