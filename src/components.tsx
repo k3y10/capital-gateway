@@ -22,7 +22,10 @@ const SECONDARY_NAV = [
 
 export function Brand() {
   return <Link to="/capital-gateway" className="brand" aria-label="Gateway for the MindLaunch ecosystem">
-    <span className="mindlaunch-mark" aria-hidden="true"><span>G</span></span>
+    <span className="mindlaunch-mark" aria-hidden="true">
+      <img src="https://mindlaunch.xyz/mindlaunch-logo.png" alt="" onLoad={(event) => event.currentTarget.parentElement?.classList.add("has-image")} onError={(event) => { event.currentTarget.src = "/mindlaunch-logo.svg"; event.currentTarget.onerror = null; }} />
+      <span>G</span>
+    </span>
     <span><strong>Gateway</strong><small>MindLaunch Ecosystem</small></span>
   </Link>;
 }
