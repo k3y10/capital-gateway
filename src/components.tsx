@@ -1,17 +1,29 @@
-import { Activity, Menu, Wallet, X, Zap } from "lucide-react";
+import { Activity, Bot, BriefcaseBusiness, Database, FolderLock, LayoutDashboard, Menu, ShieldCheck, Users, Wallet, X, Zap } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { BASE_CHAIN_ID } from "./config";
 import type { WalletAddress, WalletProviderName } from "./types";
 import { shortenWalletAddress } from "./utils";
 
-const PRIMARY_NAV = [["/capital-gateway", "Gateway"], ["/laika/capital", "Laika"], ["/partner/dashboard", "Partner"], ["/partner/dataroom", "Dataroom"], ["/admin/referrals", "Admin"]] as const;
-const SECONDARY_NAV = [["/admin/capital-interest", "Pipeline"], ["/admin/dataroom", "Access"], ["/admin/projects", "Projects"], ["/admin/partners", "Partners"]] as const;
+const PRIMARY_NAV = [
+  { to: "/capital-gateway", label: "Gateway", Icon: BriefcaseBusiness },
+  { to: "/laika/capital", label: "Laika", Icon: Bot },
+  { to: "/partner/dashboard", label: "Partner", Icon: LayoutDashboard },
+  { to: "/partner/dataroom", label: "Dataroom", Icon: FolderLock },
+  { to: "/admin/referrals", label: "Admin", Icon: ShieldCheck },
+] as const;
+
+const SECONDARY_NAV = [
+  { to: "/admin/capital-interest", label: "Pipeline", Icon: Activity },
+  { to: "/admin/dataroom", label: "Access", Icon: FolderLock },
+  { to: "/admin/projects", label: "Projects", Icon: Database },
+  { to: "/admin/partners", label: "Partners", Icon: Users },
+] as const;
 
 export function Brand() {
-  return <Link to="/capital-gateway" className="brand" aria-label="MindLaunch Capital Gateway home">
-    <span className="mindlaunch-mark"><i /><i /><i /></span>
-    <span><strong>MindLaunch</strong><small>CAPITAL GATEWAY</small></span>
+  return <Link to="/capital-gateway" className="brand" aria-label="MindLaunch.AI Capital Gateway home">
+    <span className="mindlaunch-mark" aria-hidden="true"><span>ML</span></span>
+    <span><strong>MindLaunch.AI</strong><small>Private Equity & Venture Studio</small></span>
   </Link>;
 }
 
@@ -37,9 +49,9 @@ export function Layout({ wallet }: { wallet: WalletView }) {
     <header className="topbar">
       <Brand />
       <nav className={open ? "main-nav open" : "main-nav"} aria-label="Primary app navigation">
-        <div className="drawer-label">MindLaunch Capital</div>
-        {PRIMARY_NAV.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setOpen(false)}>{label}</NavLink>)}
-        <div className="drawer-section"><span>Admin</span>{SECONDARY_NAV.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setOpen(false)}>{label}</NavLink>)}</div>
+        <div className="drawer-label">MindLaunch ecosystem</div>
+        {PRIMARY_NAV.map(({ to, label, Icon }) => <NavLink key={to} to={to} onClick={() => setOpen(false)}><Icon size={15} strokeWidth={1.8} /><span>{label}</span></NavLink>)}
+        <div className="drawer-section"><span>Admin</span>{SECONDARY_NAV.map(({ to, label, Icon }) => <NavLink key={to} to={to} onClick={() => setOpen(false)}><Icon size={15} strokeWidth={1.8} /><span>{label}</span></NavLink>)}</div>
       </nav>
       <div className="topbar-actions">
         <span className="network-dot">{wallet.isWrongNetwork ? "Wrong network" : `Base / ${BASE_CHAIN_ID}`}</span>
@@ -49,7 +61,7 @@ export function Layout({ wallet }: { wallet: WalletView }) {
     </header>
     <main><Outlet /></main>
     <footer>
-      <div><Brand /><p>Post-AI venture capital routing, partner referrals, and compliance-gated dataroom access for the MindLaunch ecosystem.</p></div>
+      <div><Brand /><p>MindLaunch.AI venture routing, partner referrals, and compliance-gated dataroom access across AI, Web3, quantum infrastructure, fintech, and field intelligence.</p></div>
       <div className="footer-links"><Link to="/capital-gateway">Gateway</Link><Link to="/partner/dataroom">Dataroom</Link><Link to="/admin/referrals">Admin</Link></div>
       <p className="disclaimer">This platform is not an offer to sell securities. USDC is prepared only as a future settlement rail after compliance approval.</p>
     </footer>
