@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Gateway">
+  <defs>
+    <radialGradient id="space" cx="50%" cy="38%" r="68%">
+      <stop offset="0" stop-color="#17326b"/>
+      <stop offset="0.56" stop-color="#070b18"/>
+      <stop offset="1" stop-color="#01020a"/>
+    </radialGradient>
+    <linearGradient id="orbit" x1="104" y1="96" x2="408" y2="416" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#78e8ff"/>
+      <stop offset="0.48" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#9d8cff"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#space)"/>
+  <g fill="#fff" opacity="0.82">
+    <circle cx="116" cy="128" r="3"/><circle cx="378" cy="96" r="2.4"/><circle cx="424" cy="324" r="2.6"/><circle cx="92" cy="372" r="2"/>
+  </g>
+  <path d="M256 84l172 172-172 172L84 256 256 84z" fill="none" stroke="url(#orbit)" stroke-width="18" stroke-linejoin="round" filter="url(#glow)"/>
+  <path d="M176 256c34-54 126-54 160 0-34 54-126 54-160 0z" fill="rgba(120,232,255,.14)" stroke="#78e8ff" stroke-width="10"/>
+  <circle cx="396" cy="126" r="22" fill="#e9c978" filter="url(#glow)"/>
+  <text x="256" y="306" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="132" font-weight="760" fill="#ffffff">G</text>
+</svg>
