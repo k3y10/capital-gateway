@@ -4,34 +4,34 @@ import { Metric, SectionHead, Status, WalletButton, type WalletView } from "./co
 import "./landing.css";
 
 const audiences = [
-  ["LPs and GPs", "Review ecosystem ventures, indicate non-binding capital interest, and enter a compliance-led review process."],
-  ["Founders and builders", "Route venture fit, operating capability, and project involvement into the MindLaunch pipeline."],
-  ["Advisors and strategic partners", "Request project context, identify diligence needs, and coordinate next steps with the studio."],
+  ["LPs and GPs", "Review ecosystem ventures, submit non-binding capital interest, and enter a compliance-led review process."],
+  ["Founders and builders", "Route venture fit, operating capability, and project involvement into the MindLaunch studio pipeline."],
+  ["Advisors and strategic partners", "Request project context, identify diligence needs, and coordinate next steps with the MindLaunch team."],
 ];
 
 const workflow = [
-  ["Partner link", "A MindLaunch partner shares a unique Capital Gateway link."],
-  ["Guided intake", "Laika explains project fit, role type, dataroom status, and why review is required."],
+  ["Partner link", "A MindLaunch partner shares a unique Capital Gateway link tied to source attribution."],
+  ["Guided intake", "Laika explains venture fit, role type, dataroom status, and why review is required."],
   ["Compliance review", "Interest, wallet context, jurisdiction, and partner source are reviewed before any funding step."],
-  ["Dataroom access", "Approved users receive project-specific document access based on permissions."],
+  ["Dataroom access", "Approved users receive project-specific document access based on granted permissions."],
 ];
 
 export function LandingPage({ wallet }: { wallet: WalletView }) {
   return <div className="capital-page">
     <section className="capital-hero">
       <div className="capital-hero-copy">
-        <span className="capital-brandline">MindLaunch Capital Gateway</span>
-        <h1>A private venture routing layer for capital, partners, and dataroom access.</h1>
-        <p>MindLaunch Capital Gateway helps LPs, GPs, advisors, founders, builders, and strategic partners understand where they fit before sensitive documents, wallet allowlists, or settlement steps are considered.</p>
+        <span className="capital-brandline">Private Equity & Venture Capital Studio</span>
+        <h1>MindLaunch.AI Capital Gateway</h1>
+        <p>A private operating layer for partner referrals, venture interest, Laika-guided routing, and permissioned dataroom access across the MindLaunch ecosystem.</p>
         <div className="hero-actions">
-          <Link className="button primary" to="/capital-gateway">Explore Gateway <ArrowRight size={16} /></Link>
+          <Link className="button primary" to="/capital-gateway">Explore Ecosystem <ArrowRight size={16} /></Link>
           <Link className="button ghost" to="/laika/capital">Connect with Laika</Link>
           <WalletButton wallet={wallet} />
         </div>
         <div className="capital-trust-strip">
-          <div><span>Positioning</span><strong>Private venture OS</strong></div>
-          <div><span>Funds</span><strong>No checkout or deposit</strong></div>
-          <div><span>Access</span><strong>Compliance-gated</strong></div>
+          <div><span>Studio</span><strong>MindLaunch ecosystem</strong></div>
+          <div><span>Funding</span><strong>No public checkout</strong></div>
+          <div><span>Access</span><strong>Review gated</strong></div>
         </div>
       </div>
       <aside className="laika-panel">
@@ -55,8 +55,8 @@ export function LandingPage({ wallet }: { wallet: WalletView }) {
     <section className="capital-education">
       <div className="capital-education-hero">
         <div>
-          <h2>What this is</h2>
-          <p>Capital Gateway is the operating layer for partner referral links, project discovery, capital interest intake, compliance review, approved-wallet preparation, and project-specific dataroom access.</p>
+          <h2>Private capital routing, not public fundraising</h2>
+          <p>Capital Gateway organizes partner referral links, project discovery, capital interest intake, compliance review, approved-wallet preparation, and project-specific dataroom access for the MindLaunch venture studio.</p>
         </div>
         <div className="education-status">
           <Status tone="cyan">backend aware</Status>
@@ -72,7 +72,7 @@ export function LandingPage({ wallet }: { wallet: WalletView }) {
 
       <div className="education-split">
         <div className="panel-lite">
-          <SectionHead label="AUDIENCE" title="Who this is for" copy="The Gateway is built for a private capital operating motion, not a public raise." />
+          <SectionHead label="AUDIENCE" title="Who this is for" copy="The Gateway supports a private capital operating motion across the MindLaunch ecosystem." />
           {audiences.map(([title, copy]) => <div key={title} className="education-row"><Users size={16} /><div><strong>{title}</strong><p>{copy}</p></div></div>)}
         </div>
         <div className="panel-lite">
