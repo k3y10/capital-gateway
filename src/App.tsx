@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AdminCapitalInterestPage, AdminDataroomPage, AdminPartnersPage, AdminProjectsPage, AdminReferralsPage, CapitalGatewayPage, InvitePage, LaikaCapitalPage, LaunchProjectPage, PartnerDashboardPage, PartnerDataroomPage } from "./capitalPages";
 import { CapitalGatewayProvider, useCapitalGateway } from "./capitalServices";
@@ -39,13 +39,17 @@ export default function App() {
 }
 
 function GatewayRoute({ children, scope = "public" }: { children: ReactNode; scope?: "public" | "partner" | "admin" }) {
-  const { isLoading, error, state, saveAccessToken, clearAccessToken } = useCapitalGateway();
+  const { isLoading, error, state, refresh, saveAccessToken, clearAccessToken } = useCapitalGateway();
   const location = useLocation();
   const [token, setToken] = useState("");
   const recordsReady = state.projects.length > 0 && state.partners.length > 0;
   const secureRoute = scope === "partner" || scope === "admin";
   const tokenScope: "partner" | "admin" = scope === "admin" ? "admin" : "partner";
   const authProblem = secureRoute && /token|access denied|unauthorized|forbidden|CAPITAL_.*TOKEN|partner portal|admin api/i.test(error);
+
+  useEffect(() => {
+    void refresh();
+  }, [location.pathname, location.search, refresh]);
 
   if (isLoading) return <GatewayStatePanel tone="cyan" label="connecting" title="Gateway is connecting" copy="MindLaunch Gateway is loading the backend API, project records, partner permissions, and dataroom access state." path={location.pathname} />;
 
