@@ -1,0 +1,14 @@
+/// <reference types="vite/client" />
+
+interface EthereumProvider {
+  isMetaMask?: boolean;
+  isCoinbaseWallet?: boolean;
+  providers?: EthereumProvider[];
+  request(args: { method: string; params?: unknown[] | Record<string, unknown> }): Promise<unknown>;
+  on?(event: string, handler: (...args: unknown[]) => void): void;
+  removeListener?(event: string, handler: (...args: unknown[]) => void): void;
+}
+
+interface Window {
+  ethereum?: EthereumProvider;
+}

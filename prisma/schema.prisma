@@ -1,0 +1,424 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  admin
+  partner
+  founder
+  viewer
+}
+
+enum CapitalRole {
+  LP
+  GP
+  advisor
+  builder
+  founder
+  strategic_partner
+}
+
+enum PartnerAccessLevel {
+  standard
+  strategic
+  admin_review @map("admin-review")
+}
+
+enum ProjectDataroomAvailability {
+  available
+  restricted
+  coming_soon
+}
+
+enum ProjectPriority {
+  active
+  watchlist
+  future
+}
+
+enum WalletProvider {
+  Coinbase_Wallet @map("Coinbase Wallet")
+  MetaMask
+  Injected_Wallet @map("Injected Wallet")
+}
+
+enum ConnectedWalletProvider {
+  Coinbase_Wallet @map("Coinbase Wallet")
+  MetaMask
+  Injected_Wallet @map("Injected Wallet")
+  Not_connected   @map("Not connected")
+}
+
+enum CapitalStatus {
+  New
+  Wallet_Connected     @map("Wallet Connected")
+  Interest_Submitted   @map("Interest Submitted")
+  Pending_Review       @map("Pending Review")
+  Needs_Documents      @map("Needs Documents")
+  Dataroom_Requested   @map("Dataroom Requested")
+  Dataroom_Granted     @map("Dataroom Granted")
+  Accredited_Verified  @map("Accredited Verified")
+  Approved
+  Rejected
+  Soft_Committed       @map("Soft Committed")
+  Funded
+  Closed
+}
+
+enum DataroomCategory {
+  Overview
+  Pitch_Deck             @map("Pitch Deck")
+  Financial_Model        @map("Financial Model")
+  Legal_Formation        @map("Legal / Formation")
+  USDC_Model             @map("USDC Model")
+  Technical_Architecture @map("Technical Architecture")
+  Roadmap
+  Diligence_Notes        @map("Diligence Notes")
+  Partner_Updates        @map("Partner Updates")
+  Investment_Memo        @map("Investment Memo")
+  Risk_Notes             @map("Risk Notes")
+}
+
+enum DocumentVisibility {
+  partner
+  admin
+  founder
+  viewer
+}
+
+enum DocumentStatus {
+  ready
+  coming_soon
+}
+
+enum DataroomAccessLevel {
+  locked
+  requested
+  granted
+  revoked
+}
+
+enum DataroomEventType {
+  view
+  download
+  request_access
+}
+
+enum StatusActor {
+  admin
+  partner
+  system
+}
+
+enum ComplianceReviewStatus {
+  not_started
+  pending
+  needs_documents
+  verified
+  rejected
+  expired
+}
+
+enum SettlementIntentStatus {
+  draft
+  approved
+  pending_signature
+  submitted
+  confirmed
+  cancelled
+  expired
+}
+
+model User {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String
+  email         String   @unique
+  role          UserRole
+  walletAddress String?  @map("wallet_address")
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  partners Partner[]
+
+  @@map("users")
+}
+
+model Partner {
+  id              String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId          String?            @map("user_id") @db.Uuid
+  name            String
+  organization    String
+  email           String             @unique
+  code            String             @unique
+  role            CapitalRole
+  accessLevel     PartnerAccessLevel @map("access_level")
+  portalTokenHash String?            @map("portal_token_hash")
+  joinedAt        DateTime           @default(now()) @map("joined_at") @db.Date
+  createdAt       DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime           @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  user              User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  referralLinks     ReferralLink[]
+  dataroomAccess    DataroomAccess[]
+  dataroomEvents    DataroomEvent[]
+  approvedWallets   ApprovedWallet[]
+
+  @@map("partners")
+}
+
+model ReferralLink {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  partnerId          String   @map("partner_id") @db.Uuid
+  code               String   @unique
+  url                String
+  visits             Int      @default(0)
+  walletConnects     Int      @default(0) @map("wallet_connects")
+  submittedInterests Int      @default(0) @map("submitted_interests")
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  partner           Partner            @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  capitalInterests  CapitalInterest[]
+  walletConnections WalletConnection[]
+  activityLogs      ActivityLog[]
+
+  @@index([partnerId], map: "idx_referral_links_partner_id")
+  @@map("referral_links")
+}
+
+model Project {
+  id                    String                       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug                  String                       @unique
+  name                  String
+  shortDescription      String                       @map("short_description")
+  category              String
+  stage                 String
+  fundingStatus         String                       @map("funding_status")
+  preferredPartnerType  String                       @map("preferred_partner_type")
+  dataroomAvailability  ProjectDataroomAvailability  @map("dataroom_availability")
+  pool                  String
+  priority              ProjectPriority
+  createdAt             DateTime                     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime                     @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  capitalInterests  CapitalInterest[]
+  walletConnections WalletConnection[]
+  documents         DataroomDocument[]
+  access            DataroomAccess[]
+  events            DataroomEvent[]
+  activityLogs      ActivityLog[]
+
+  @@map("projects")
+}
+
+model CapitalInterest {
+  id                         String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullName                   String                  @map("full_name")
+  email                      String
+  organization               String
+  walletAddress              String                  @default("") @map("wallet_address")
+  connectedWalletProvider    ConnectedWalletProvider @map("connected_wallet_provider")
+  referralCode               String                  @map("referral_code")
+  projectSlug                String                  @map("project_slug")
+  poolOfInterest             String                  @map("pool_of_interest")
+  intendedAmountUsdc         Decimal                 @map("intended_amount_usdc") @db.Decimal(20, 2)
+  roleType                   CapitalRole             @map("role_type")
+  accreditedSelfAttestation  Boolean                 @default(false) @map("accredited_self_attestation")
+  jurisdiction               String
+  notes                      String                  @default("")
+  status                     CapitalStatus
+  confirmationAccepted       Boolean                 @default(false) @map("confirmation_accepted")
+  acknowledgements           Json                    @default("{}")
+  submittedAt                DateTime                @default(now()) @map("submitted_at") @db.Timestamptz(6)
+
+  referralLink ReferralLink @relation(fields: [referralCode], references: [code], onUpdate: Cascade)
+  project      Project      @relation(fields: [projectSlug], references: [slug], onUpdate: Cascade)
+  statusEvents StatusEvent[]
+  adminNotes   AdminNote[]
+  complianceReview ComplianceReview?
+  approvedWallets ApprovedWallet[]
+  settlementIntents SettlementIntent[]
+
+  @@index([referralCode], map: "idx_capital_interests_referral_code")
+  @@index([projectSlug], map: "idx_capital_interests_project_slug")
+  @@index([status], map: "idx_capital_interests_status")
+  @@index([intendedAmountUsdc], map: "idx_capital_interests_amount")
+  @@map("capital_interests")
+}
+
+model WalletConnection {
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  referralCode   String         @map("referral_code")
+  walletAddress  String         @map("wallet_address")
+  provider       WalletProvider
+  projectSlug    String?        @map("project_slug")
+  connectedAt    DateTime       @default(now()) @map("connected_at") @db.Timestamptz(6)
+
+  referralLink ReferralLink @relation(fields: [referralCode], references: [code], onUpdate: Cascade)
+  project      Project?     @relation(fields: [projectSlug], references: [slug], onUpdate: Cascade)
+
+  @@index([referralCode], map: "idx_wallet_connections_referral_code")
+  @@map("wallet_connections")
+}
+
+model DataroomDocument {
+  id          String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectSlug String             @map("project_slug")
+  title       String
+  category    DataroomCategory
+  storageUri  String?            @map("storage_uri")
+  uploadDate  DateTime           @default(now()) @map("upload_date") @db.Date
+  version     String
+  visibility  DocumentVisibility
+  status      DocumentStatus
+  views       Int                @default(0)
+  downloads   Int                @default(0)
+  createdAt   DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime           @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  project Project          @relation(fields: [projectSlug], references: [slug], onUpdate: Cascade)
+  events  DataroomEvent[]
+
+  @@index([projectSlug], map: "idx_dataroom_documents_project_slug")
+  @@map("dataroom_documents")
+}
+
+model DataroomAccess {
+  id          String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  partnerId   String              @map("partner_id") @db.Uuid
+  projectSlug String              @map("project_slug")
+  level       DataroomAccessLevel
+  grantedBy   String?             @map("granted_by")
+  grantedAt   DateTime?           @map("granted_at") @db.Timestamptz(6)
+  requestedAt DateTime?           @map("requested_at") @db.Timestamptz(6)
+  createdAt   DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime            @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  partner Partner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectSlug], references: [slug], onUpdate: Cascade)
+
+  @@unique([partnerId, projectSlug])
+  @@index([partnerId, projectSlug], map: "idx_dataroom_access_partner_project")
+  @@map("dataroom_access")
+}
+
+model DataroomEvent {
+  id          String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  documentId  String?           @map("document_id") @db.Uuid
+  projectSlug String            @map("project_slug")
+  partnerId   String            @map("partner_id") @db.Uuid
+  event       DataroomEventType
+  timestamp   DateTime          @default(now()) @db.Timestamptz(6)
+
+  document DataroomDocument? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  project  Project           @relation(fields: [projectSlug], references: [slug], onUpdate: Cascade)
+  partner  Partner           @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  @@index([partnerId], map: "idx_dataroom_events_partner_id")
+  @@map("dataroom_events")
+}
+
+model StatusEvent {
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  interestId  String      @map("interest_id") @db.Uuid
+  fromStatus  String      @map("from_status")
+  toStatus    String      @map("to_status")
+  actor       StatusActor
+  timestamp   DateTime    @default(now()) @db.Timestamptz(6)
+
+  interest CapitalInterest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+
+  @@index([interestId], map: "idx_status_events_interest_id")
+  @@map("status_events")
+}
+
+model AdminNote {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  interestId String   @map("interest_id") @db.Uuid
+  author     String
+  body       String
+  private    Boolean  @default(true)
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  interest CapitalInterest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+
+  @@map("admin_notes")
+}
+
+model ActivityLog {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  actor        String
+  action       String
+  projectSlug  String?  @map("project_slug")
+  referralCode String?  @map("referral_code")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  project      Project?      @relation(fields: [projectSlug], references: [slug], onUpdate: Cascade)
+  referralLink ReferralLink? @relation(fields: [referralCode], references: [code], onUpdate: Cascade)
+
+  @@index([referralCode], map: "idx_activity_logs_referral_code")
+  @@index([createdAt(sort: Desc)], map: "idx_activity_logs_created_at")
+  @@map("activity_logs")
+}
+
+model ComplianceReview {
+  id                String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  interestId        String                 @unique @map("interest_id") @db.Uuid
+  status            ComplianceReviewStatus
+  provider          String?
+  externalReference String?                @map("external_reference")
+  reviewedBy        String?                @map("reviewed_by")
+  reviewedAt        DateTime?              @map("reviewed_at") @db.Timestamptz(6)
+  expiresAt         DateTime?              @map("expires_at") @db.Timestamptz(6)
+  createdAt         DateTime               @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime               @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  interest CapitalInterest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+
+  @@index([status], map: "idx_compliance_reviews_status")
+  @@map("compliance_reviews")
+}
+
+model ApprovedWallet {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  walletAddress String    @map("wallet_address")
+  partnerId     String?   @map("partner_id") @db.Uuid
+  interestId    String?   @map("interest_id") @db.Uuid
+  chainId       Int       @default(8453) @map("chain_id")
+  approvedBy    String    @map("approved_by")
+  approvedAt    DateTime  @default(now()) @map("approved_at") @db.Timestamptz(6)
+  revokedAt     DateTime? @map("revoked_at") @db.Timestamptz(6)
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  partner  Partner?         @relation(fields: [partnerId], references: [id], onDelete: SetNull)
+  interest CapitalInterest? @relation(fields: [interestId], references: [id], onDelete: SetNull)
+
+  @@index([partnerId], map: "idx_approved_wallets_partner_id")
+  @@index([interestId], map: "idx_approved_wallets_interest_id")
+  @@map("approved_wallets")
+}
+
+model SettlementIntent {
+  id            String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  interestId    String                 @map("interest_id") @db.Uuid
+  walletAddress String                 @map("wallet_address")
+  chainId       Int                    @default(8453) @map("chain_id")
+  usdcAmount    Decimal                @map("usdc_amount") @db.Decimal(20, 2)
+  status        SettlementIntentStatus
+  txHash        String?                @map("tx_hash")
+  createdBy     String                 @map("created_by")
+  approvedBy    String?                @map("approved_by")
+  approvedAt    DateTime?              @map("approved_at") @db.Timestamptz(6)
+  expiresAt     DateTime?              @map("expires_at") @db.Timestamptz(6)
+  createdAt     DateTime               @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime               @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  interest CapitalInterest @relation(fields: [interestId], references: [id], onDelete: Restrict)
+
+  @@index([interestId], map: "idx_settlement_intents_interest_id")
+  @@index([status], map: "idx_settlement_intents_status")
+  @@map("settlement_intents")
+}
