@@ -16,7 +16,7 @@
   --white: #ffffff;
   --orange: #fb923c;
   --orange-strong: #f97316;
-  --blue: #60a5fa;
+  --blue: #fb923c;
   --green: #22c55e;
   --warn: #facc15;
   --danger: #ef4444;
@@ -27,12 +27,19 @@
   --mindlaunch-glass-strong: rgba(0, 0, 0, 0.74);
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
 body {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.74)),
     url("/background.jpg") center / cover no-repeat fixed,
     #000000;
   color: var(--white);
+  min-height: 100dvh;
 }
 
 body::selection {
@@ -42,6 +49,7 @@ body::selection {
 
 .site-shell {
   background: rgba(0, 0, 0, 0.2);
+  min-height: 100dvh;
 }
 
 .topbar {
@@ -86,18 +94,23 @@ body::selection {
 }
 
 .mindlaunch-mark img {
+  border-radius: 999px;
   display: block;
-  width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 2px;
+  width: 100%;
 }
 
 .mindlaunch-hero-logo {
   display: block;
+  filter: drop-shadow(0 0 28px rgba(249, 115, 22, 0.18));
   height: auto;
   margin: 0 auto 22px;
-  max-width: min(420px, 82vw);
+  max-height: 78px;
+  max-width: min(430px, 82vw);
   object-fit: contain;
+  width: min(430px, 82vw);
 }
 
 .main-nav a,
@@ -200,6 +213,10 @@ body::selection {
   background: transparent;
 }
 
+.capital-page {
+  width: min(100%, 1600px);
+}
+
 .capital-hero {
   border-bottom: 1px solid rgba(251, 146, 60, 0.16);
   overflow: hidden;
@@ -286,6 +303,18 @@ footer p {
   border-radius: 999px;
   box-shadow: 0 0 32px rgba(249, 115, 22, 0.22);
   color: var(--mindlaunch-orange-soft);
+}
+
+.laika-orb svg:last-child,
+.recent-capital-activity i,
+.usdc-readiness svg,
+.metric > svg {
+  color: var(--mindlaunch-orange-soft);
+}
+
+.recent-capital-activity i {
+  background: var(--mindlaunch-orange-soft);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
 }
 
 .laika-steps div,
@@ -379,21 +408,95 @@ select:focus {
   color: var(--mindlaunch-orange-soft);
 }
 
+.capital-project-card {
+  overflow: hidden;
+  padding-top: 92px;
+  position: relative;
+}
+
+.capital-project-card::before {
+  background-color: rgba(0, 0, 0, 0.55);
+  background-image: url("/mindlaunch.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 72%;
+  border: 1px solid rgba(251, 146, 60, 0.38);
+  border-radius: 16px;
+  box-shadow: 0 0 28px rgba(249, 115, 22, 0.18), inset 0 0 22px rgba(249, 115, 22, 0.08);
+  content: "";
+  height: 56px;
+  left: 22px;
+  position: absolute;
+  top: 22px;
+  width: 56px;
+}
+
+.capital-project-card::after {
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.16), transparent 68%);
+  content: "";
+  height: 150px;
+  left: -48px;
+  pointer-events: none;
+  position: absolute;
+  top: -48px;
+  width: 150px;
+}
+
+.capital-project-card:nth-child(1)::before {
+  background-image: url("/logos/idefi-ai.png");
+}
+
+.capital-project-card:nth-child(2)::before {
+  background-image: url("/logos/terrasatch-logo.png");
+}
+
+.capital-project-card:nth-child(3)::before {
+  background-image: url("/logos/quak.png");
+}
+
+.capital-project-card:nth-child(7)::before {
+  background-image: url("/logos/horao-ai.png");
+}
+
+.capital-project-card:nth-child(8)::before {
+  background-image: url("/logos/wolfden-logo.png");
+}
+
+.project-card-top {
+  min-height: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.capital-project-card h3,
+.capital-project-card p,
+.capital-project-card dl,
+.project-card-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.capital-project-card h3 {
+  line-height: 1.05;
+}
+
 .project-logo {
   align-items: center;
   background: rgba(249, 115, 22, 0.16);
   border: 1px solid rgba(251, 146, 60, 0.34);
-  border-radius: 999px;
+  border-radius: 16px;
   display: inline-flex;
-  height: 42px;
+  height: 56px;
   justify-content: center;
   overflow: hidden;
-  width: 42px;
+  padding: 8px;
+  width: 56px;
 }
 
 .project-logo img {
+  display: block;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
@@ -442,6 +545,17 @@ footer a {
   color: #fed7aa;
 }
 
+@media (display-mode: standalone) {
+  .topbar {
+    height: calc(74px + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .capital-page {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 780px) {
   body {
     background-attachment: scroll;
@@ -463,6 +577,17 @@ footer a {
   }
 
   .mindlaunch-hero-logo {
+    max-height: 58px;
     max-width: min(320px, 82vw);
+    width: min(320px, 82vw);
+  }
+
+  .capital-project-card {
+    padding-top: 84px;
+  }
+
+  .capital-project-card::before {
+    height: 48px;
+    width: 48px;
   }
 }
