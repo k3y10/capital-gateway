@@ -1,5 +1,17 @@
-const CACHE_NAME = "gateway-shell-v7";
-const APP_SHELL = ["/", "/capital-gateway", "/manifest.webmanifest", "/mindlaunch.png", "/mindlaunch-logo.png"];
+const CACHE_NAME = "gateway-shell-v8";
+const APP_SHELL = [
+  "/",
+  "/capital-gateway",
+  "/manifest.webmanifest",
+  "/mindlaunch.png",
+  "/mindlaunch-logo.png",
+  "/laika.png",
+  "/logos/idefi-ai.png",
+  "/logos/terrasatch-logo.png",
+  "/logos/quak.png",
+  "/logos/horao-ai.png",
+  "/logos/wolfden-logo.png",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
