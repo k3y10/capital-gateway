@@ -16,10 +16,12 @@
 .education-grid article,
 .panel-lite,
 .capital-education-footer > div {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: linear-gradient(145deg, rgba(18, 18, 20, .95), rgba(10, 10, 12, .96));
+  border: 1px solid rgba(251, 146, 60, .28);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(0, 0, 0, .58), rgba(8, 8, 8, .72));
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .34);
   padding: 24px;
+  backdrop-filter: blur(12px);
 }
 
 .capital-education-hero h2 {
@@ -58,7 +60,7 @@
 
 .education-grid svg,
 .capital-education-footer svg {
-  color: var(--blue);
+  color: var(--mindlaunch-orange-soft);
   margin-bottom: 18px;
 }
 
@@ -90,7 +92,7 @@
   display: grid;
   grid-template-columns: 34px 1fr;
   gap: 12px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(251, 146, 60, .2);
   padding-top: 13px;
 }
 
