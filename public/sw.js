@@ -1,5 +1,5 @@
-const CACHE_NAME = "gateway-shell-v6";
-const APP_SHELL = ["/", "/manifest.webmanifest", "/mindlaunch.png", "/mindlaunch-logo.png"];
+const CACHE_NAME = "gateway-shell-v7";
+const APP_SHELL = ["/", "/capital-gateway", "/manifest.webmanifest", "/mindlaunch.png", "/mindlaunch-logo.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
@@ -17,7 +17,7 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.startsWith("/api/")) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(fetch(request).then((response) => response.ok ? response : caches.match("/")).catch(() => caches.match("/")).then((response) => response || caches.match("/")));
+    event.respondWith(fetch(request).then((response) => response.ok ? response : caches.match("/capital-gateway")).catch(() => caches.match("/capital-gateway")).then((response) => response || caches.match("/")));
     return;
   }
 
